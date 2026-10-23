@@ -204,6 +204,13 @@ function validatePersona(filePath) {
     });
   }
 
+  // 9. Validate Optional speech_patterns (Must be a non-empty string if present)
+  if (data.speech_patterns !== undefined) {
+    if (typeof data.speech_patterns !== 'string' || !data.speech_patterns.trim()) {
+      logError(filePath, 'Field "speech_patterns", if present, must be a non-empty string');
+    }
+  }
+
   totalPersonas++;
 }
 

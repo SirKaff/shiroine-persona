@@ -159,11 +159,8 @@
       "description": "Few-shot dialogue examples showing speech style, tone, and action formatting"
     },
     "speech_patterns": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "minLength": 1
-      },
+      "type": "string",
+      "minLength": 1,
       "description": "Optional speech quirks, catchphrases, pronouns, or verbal tics"
     }
   }
