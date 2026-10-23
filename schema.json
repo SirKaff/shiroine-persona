@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/suhwr/shiroine-persona/main/schema.json",
+  "title": "AIPersona",
+  "description": "JSON Schema specification for Open-Source AI Character Personas",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "calling",
+    "description",
+    "personality",
+    "appearance",
+    "features",
+    "behavior",
+    "scenario",
+    "first_message",
+    "world_info",
+    "relationships",
+    "example_dialogues"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "URL to schema.json for editor validation and autocomplete"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9]{6,}$",
+      "description": "Unique numeric persona identifier (TTCCNN or open-ended TTCCNNN+)"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Full display name of the character (e.g., Hatsune Miku)"
+    },
+    "calling": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short primary summon alias / trigger keyword (lowercase, single word, e.g., miku)"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Comprehensive summary of the character identity, role, and lore"
+    },
+    "personality": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Core personality traits, emotional disposition, and behavioral quirks"
+    },
+    "appearance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Physical traits, clothing, hair, eyes, and distinctive visual elements"
+    },
+    "features": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Key lore facts, abilities, weapons, origins, or notable background details"
+    },
+    "behavior": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Condition -> Reaction behavior patterns demonstrating character reactions to scenarios"
+    },
+    "scenario": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Contextual setup / scene background setting for dialogue and interaction"
+    },
+    "first_message": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Default opening greeting or introductory line spoken by the character"
+    },
+    "world_info": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["keywords", "content"],
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Keywords that trigger injection of this lore entry"
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Lorebook / RAG background knowledge injected when keywords are mentioned"
+          }
+        }
+      },
+      "description": "Lorebook entries activated by keywords in user dialogue"
+    },
+    "relationships": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "content"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of the related character"
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Character's feelings, history, and dynamics toward this related person"
+          }
+        }
+      },
+      "description": "Key relationships with other characters in their universe"
+    },
+    "example_dialogues": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["user", "char"],
+        "properties": {
+          "user": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Simulated user message or prompt"
+          },
+          "char": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Example character response demonstrating tone, formatting, and personality"
+          }
+        }
+      },
+      "description": "Few-shot dialogue examples showing speech style, tone, and action formatting"
+    },
+    "speech_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Optional speech quirks, catchphrases, pronouns, or verbal tics"
+    }
+  }
+}
