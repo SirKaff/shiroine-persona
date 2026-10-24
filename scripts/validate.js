@@ -50,28 +50,22 @@ function validateFolderPlacement(file, id) {
 
   let expectedDir = '';
   if (prefix === '1001') {
-    expectedDir = 'personas/1001-vocaloid';
+    expectedDir = 'personas/10-anime/01-vocaloid';
   } else if (prefix === '1002') {
-    expectedDir = 'personas/1002-vtuber';
+    expectedDir = 'personas/10-anime/02-vtuber';
   } else if (prefix === '1003') {
-    const num = parseInt(id.substring(4), 10);
-    if (num < 100) {
-      expectedDir = 'personas/1003-anime-female/001-099';
-    } else {
-      const lower = Math.floor(num / 100) * 100;
-      const upper = lower + 99;
-      expectedDir = `personas/1003-anime-female/${lower}-${upper}`;
-    }
+    expectedDir = 'personas/10-anime/03-female';
   } else if (prefix === '1004') {
-    expectedDir = 'personas/1004-anime-male';
+    expectedDir = 'personas/10-anime/04-male';
   } else if (prefix === '2003') {
-    expectedDir = 'personas/2003-game';
+    expectedDir = 'personas/20-game/03-female';
   } else if (prefix === '3001') {
-    expectedDir = 'personas/3001-assistant';
+    expectedDir = 'personas/30-assistant/01-assistant';
   }
 
-  if (expectedDir && !relPath.startsWith(expectedDir)) {
-    logError(file, `File is placed in incorrect directory. Expected: "${expectedDir}/", Actual: "${path.dirname(relPath)}/"`);
+  const actualDir = path.dirname(relPath);
+  if (expectedDir && actualDir !== expectedDir) {
+    logError(file, `File is placed in incorrect directory. Expected: "${expectedDir}/", Actual: "${actualDir}/"`);
   }
 }
 
@@ -103,8 +97,9 @@ function validatePersona(filePath) {
     logError(filePath, `Invalid "id" format "${data.id}". Must be at least 6 digits (TTCCNN...)`);
   }
 
-  if (!fileName.startsWith(`${data.id}-`)) {
-    logError(filePath, `File name "${fileName}" must start with ID "${data.id}-"`);
+  const nn = data.id.substring(4);
+  if (!fileName.startsWith(`${nn}-`)) {
+    logError(filePath, `File name "${fileName}" must start with character number "${nn}-"`);
   }
 
   if (seenIDs.has(data.id)) {

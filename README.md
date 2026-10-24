@@ -19,18 +19,19 @@ Setiap persona dilengkapi deskripsi karakter, kepribadian (*personality*), ciri 
 
 ## Struktur Direktori
 
-File persona disimpan di dalam direktori `personas/` berdasarkan kode kategori:
+File persona disimpan secara terstruktur dengan kedalaman dua tingkat kategori:
 
 ```text
 personas/
-├── 1001-vocaloid/             # Virtual Singer / Vocaloid
-├── 1002-vtuber/               # VTuber
-├── 1003-anime-female/         # Karakter Anime Wanita
-│   ├── 001-099/               # Batch 1 (ID 100301 s/d 100399)
-│   └── 100-199/               # Batch 2 (ID 1003100 s/d 1003199)
-├── 1004-anime-male/           # Karakter Anime Pria / Protagonis
-├── 2003-game/                 # Karakter Game
-└── 3001-assistant/            # Smart Assistant
+├── 10-anime/
+│   ├── 01-vocaloid/           # Virtual Singer / Vocaloid (01-hatsune-miku.json, dll.)
+│   ├── 02-vtuber/             # VTuber (01-shirakami-fubuki.json, dll.)
+│   ├── 03-female/             # Karakter Anime Wanita (01-ai-ohto.json, 72-raphael.json, dll.)
+│   └── 04-male/               # Karakter Anime Pria (01-anos-voldigoad.json, 08-satoru-gojo.json, dll.)
+├── 20-game/
+│   └── 03-female/             # Karakter Game (01-yae-miko.json, 18-takanashi-hoshino.json, dll.)
+└── 30-assistant/
+    └── 01-assistant/          # Smart Assistant (01-shiro.json, 02-jarvis.json, dll.)
 ```
 
 ---
@@ -41,15 +42,18 @@ Setiap persona memiliki pengenal numerik unik dengan format:
 
 $$\text{ID} = \text{TT} \, \text{CC} \, \text{NN...}$$
 
-- **TT (Tipe Utama):** `10` (Anime/Manga), `20` (Game/Virtual), `30` (Asisten/Utilitas), `40` (Orisinal/Fun).
-- **CC (Sub-Kategori):** `01` (Vocaloid), `02` (VTuber), `03` (Karakter Wanita), `04` (Karakter Pria).
-- **NN... (Nomor Urut):** Dimulai dari `01` s/d `99`. Ketika nomor urut melampaui 99, digit bertambah secara alami menjadi 3 digit (`100`, `101`, dst.) dan ditempatkan pada folder batch baru (`100-199/`).
+- **TT (Folder Tipe):** `10` (Anime), `20` (Game), `30` (Assistant).
+- **CC (Subfolder Kategori):** `01` (Vocaloid/Assistant), `02` (VTuber), `03` (Female/Waifu), `04` (Male).
+- **NN... (Nama File `{NN}-{slug}.json`):** Dimulai dari `01` s/d `99`. Ketika nomor urut melampaui 99, digit bertambah secara alami menjadi 3 digit (`100`, `101`, dst.) tanpa batas.
+
+Path lengkap merefleksikan ID karakter:
+$$\text{personas/} \underbrace{\text{10}}_{\text{TT}}\text{-anime/} \underbrace{\text{01}}_{\text{CC}}\text{-vocaloid/} \underbrace{\text{01}}_{\text{NN}}\text{-hatsune-miku.json} \implies \text{ID: 100101}$$
 
 ---
 
 ## Struktur Data JSON
 
-Setiap file persona `{id}-{slug}.json` mengikuti spesifikasi berikut:
+Setiap file persona `{nn}-{slug}.json` mengikuti spesifikasi berikut:
 
 | Field | Tipe | Status | Keterangan |
 | :--- | :--- | :---: | :--- |

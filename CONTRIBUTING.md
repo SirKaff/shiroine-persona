@@ -11,11 +11,11 @@ Terima kasih atas ketertarikan Anda untuk berkontribusi pada database Persona AI
 2. **Format JSON Valid & UTF-8:**
    Gunakan kutip dua `""` standar dan pastikan file tersimpan dalam encoding UTF-8.
 3. **Format ID & Nama File:**
-   Nama file harus mengikuti format:
+   Nama file harus mengikuti format nomor urut karakter (`NN`) dan slug:
    ```text
-   {ID}-{slug-nama-karakter}.json
+   {NN}-{slug-nama-karakter}.json
    ```
-   *Contoh:* `100101-hatsune-miku.json`, `200301-yae-miko.json`.
+   *Contoh:* `01-hatsune-miku.json`, `01-yae-miko.json`, `72-raphael.json`.
 
 ---
 
@@ -24,25 +24,26 @@ Terima kasih atas ketertarikan Anda untuk berkontribusi pada database Persona AI
 Format ID menggunakan skema numerik:
 ```text
 TT CC NN...
-│  │  └── Nomor Urut Karakter (01–99, lalu lanjut 100, 101, 102...)
-│  └───── Sub-Kategori
-└──────── Kategori Utama
+│  │  └── Nomor Urut Karakter (Nama File: {NN}-{slug}.json)
+│  └───── Sub-Kategori (Subfolder: {CC}-{subkategori})
+└──────── Tipe Utama (Folder Utama: {TT}-{tipe})
 ```
 
 ### Daftar Kategori & Lokasi Folder
 
-| Kode Prefix | Kategori | Lokasi Folder | Catatan |
+| Kode Prefix | Kategori | Lokasi Folder | Catatan File |
 | :--- | :--- | :--- | :--- |
-| `1001` | Vocaloid / Virtual Singer | `personas/1001-vocaloid/` | Miku, Teto, Emu, dll. |
-| `1002` | VTuber | `personas/1002-vtuber/` | Fubuki, Gura, Zeta, dll. |
-| `1003` | Anime Female (Waifu) | `personas/1003-anime-female/` | Dipecah per-100 file |
-| ↳ ID `100301`–`100399` | Batch 1 | `personas/1003-anime-female/001-099/` | Maks 99 file |
-| ↳ ID `1003100`–`1003199` | Batch 2 | `personas/1003-anime-female/100-199/` | Maks 100 file |
-| `1004` | Anime Male (Husbando / Protagonist) | `personas/1004-anime-male/` | Gojo, Anos, Cid, dll. |
-| `2003` | Game Characters | `personas/2003-game/` | Genshin, Star Rail, Blue Archive, dll. |
-| `3001` | AI Assistant | `personas/3001-assistant/` | Jarvis, TARS, Kurisu, Cortana, dll. |
+| `1001` | Vocaloid / Virtual Singer | `personas/10-anime/01-vocaloid/` | `01-hatsune-miku.json`, dll. |
+| `1002` | VTuber | `personas/10-anime/02-vtuber/` | `01-shirakami-fubuki.json`, dll. |
+| `1003` | Anime Female (Waifu) | `personas/10-anime/03-female/` | `01-ai-ohto.json`, `72-raphael.json`, dll. |
+| `1004` | Anime Male (Husbando / Protagonist) | `personas/10-anime/04-male/` | `01-anos-voldigoad.json`, `08-satoru-gojo.json`, dll. |
+| `2003` | Game Characters | `personas/20-game/03-female/` | `01-yae-miko.json`, `18-takanashi-hoshino.json`, dll. |
+| `3001` | AI Assistant | `personas/30-assistant/01-assistant/` | `01-shiro.json`, `02-jarvis.json`, dll. |
 
-Jika suatu kategori melampaui 99 karakter, nomor ID otomatis bertambah menjadi 7 digit (misal: `1003100`, `1003101`) dan ditempatkan di folder batch berikutnya (`100-199/`). Tidak ada folder yang menampung lebih dari 100 file.
+ID lengkap karakter di dalam JSON adalah gabungan dari:
+`{TT}` + `{CC}` + `{NN...}` (Contoh: folder `10-anime` + `01-vocaloid` + file `01-hatsune-miku.json` $\implies$ `"id": "100101"`).
+
+Jika suatu kategori melampaui 99 karakter, nomor urut bertambah secara alami menjadi 3 digit (misal: `100-nama-karakter.json`, dengan ID `1003100`).
 
 ---
 
